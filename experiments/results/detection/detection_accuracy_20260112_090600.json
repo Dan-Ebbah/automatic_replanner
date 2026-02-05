@@ -1,0 +1,1358 @@
+{
+  "metadata": {
+    "name": "detection_accuracy",
+    "description": "Testing AEGIS detection across failure types",
+    "config": {
+      "num_trials": 5,
+      "failure_modes": [
+        "hallucination",
+        "semantic_drift",
+        "empty_output",
+        "crash"
+      ],
+      "agents": [
+        "research",
+        "analyze",
+        "summarize"
+      ]
+    },
+    "started_at": "2026-01-12T09:04:20.121906",
+    "completed_at": "2026-01-12T09:06:00.177583"
+  },
+  "metrics": {
+    "summary": {
+      "total_runs": 60,
+      "successful_runs": 60,
+      "failed_runs": 0,
+      "success_rate": 1.0
+    },
+    "detection": {
+      "total_failures_injected": 60,
+      "total_failures_detected": 60,
+      "detection_rate": 1.0,
+      "false_negative_rate": 0.0
+    },
+    "recovery": {
+      "repair": {
+        "total_attempts": 0,
+        "total_successes": 0,
+        "success_rate": 0
+      },
+      "recompose": {
+        "total_attempts": 0,
+        "total_successes": 0,
+        "success_rate": 0
+      },
+      "overall_recovery_rate": 0.0
+    },
+    "timing": {
+      "total_time": {
+        "mean_ms": 1667.5655364990234,
+        "median_ms": 773.0427980422974,
+        "std_ms": 1832.6324076733115,
+        "min_ms": 0.003814697265625,
+        "max_ms": 5702.080965042114
+      },
+      "recovery_time": {
+        "mean_ms": 0,
+        "median_ms": 0,
+        "std_ms": 0
+      }
+    },
+    "quality": {
+      "available": false
+    },
+    "by_failure_type": {
+      "hallucination": {
+        "count": 15,
+        "detected": 15,
+        "recovered": 15,
+        "detection_rate": 1.0,
+        "recovery_rate": 1.0
+      },
+      "semantic_drift": {
+        "count": 15,
+        "detected": 15,
+        "recovered": 15,
+        "detection_rate": 1.0,
+        "recovery_rate": 1.0
+      },
+      "empty_output": {
+        "count": 15,
+        "detected": 15,
+        "recovered": 15,
+        "detection_rate": 1.0,
+        "recovery_rate": 1.0
+      },
+      "crash": {
+        "count": 15,
+        "detected": 15,
+        "recovered": 15,
+        "detection_rate": 1.0,
+        "recovery_rate": 1.0
+      }
+    }
+  },
+  "results": [
+    {
+      "run_id": "hallucination_research_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3604.356050491333,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "research",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "hallucination_research_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4701.918125152588,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "research",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "hallucination_research_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4590.675115585327,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "research",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "hallucination_research_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4624.084949493408,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "research",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "hallucination_research_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3482.6228618621826,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "research",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "hallucination_analyze_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3652.3189544677734,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "analyze",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "hallucination_analyze_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4026.9312858581543,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "analyze",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "hallucination_analyze_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4812.793970108032,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "analyze",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "hallucination_analyze_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4197.191953659058,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "analyze",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "hallucination_analyze_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3285.7038974761963,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "analyze",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "hallucination_summarize_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4294.54779624939,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "summarize",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "hallucination_summarize_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2798.4390258789062,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "summarize",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "hallucination_summarize_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 5702.080965042114,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "summarize",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "hallucination_summarize_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3851.2368202209473,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "summarize",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "hallucination_summarize_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4133.939981460571,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_mode": "hallucination",
+        "agent": "summarize",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "semantic_drift_research_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2458.1120014190674,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "research",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "semantic_drift_research_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3172.297954559326,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "research",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "semantic_drift_research_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4096.543073654175,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "research",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "semantic_drift_research_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2763.0600929260254,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "research",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "semantic_drift_research_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2254.5080184936523,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "research",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "semantic_drift_analyze_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2252.1729469299316,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "analyze",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "semantic_drift_analyze_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2662.3189449310303,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "analyze",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "semantic_drift_analyze_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 3379.451036453247,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "analyze",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "semantic_drift_analyze_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 1546.0617542266846,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "analyze",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "semantic_drift_analyze_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2630.2061080932617,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "analyze",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "semantic_drift_summarize_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2430.5479526519775,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "summarize",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "semantic_drift_summarize_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 1893.3241367340088,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "summarize",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "semantic_drift_summarize_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 1943.5088634490967,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "summarize",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "semantic_drift_summarize_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2150.9339809417725,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "summarize",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "semantic_drift_summarize_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 2661.8549823760986,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_mode": "semantic_drift",
+        "agent": "summarize",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "empty_output_research_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.02384185791015625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "research",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "empty_output_research_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.009059906005859375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "research",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "empty_output_research_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.007867813110351562,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "research",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "empty_output_research_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0069141387939453125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "research",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "empty_output_research_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0069141387939453125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "research",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "empty_output_analyze_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0069141387939453125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "analyze",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "empty_output_analyze_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0059604644775390625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "analyze",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "empty_output_analyze_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0057220458984375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "analyze",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "empty_output_analyze_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0057220458984375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "analyze",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "empty_output_analyze_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.006198883056640625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "analyze",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "empty_output_summarize_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.007152557373046875,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "summarize",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "empty_output_summarize_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0059604644775390625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "summarize",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "empty_output_summarize_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0059604644775390625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "summarize",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "empty_output_summarize_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0059604644775390625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "summarize",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "empty_output_summarize_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0057220458984375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "empty_output"
+      ],
+      "config": {
+        "failure_mode": "empty_output",
+        "agent": "summarize",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "crash_research_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.007867813110351562,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "research",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "crash_research_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.006198883056640625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "research",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "crash_research_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.00476837158203125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "research",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "crash_research_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.003814697265625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "research",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "crash_research_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0040531158447265625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "research",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "crash_analyze_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.00476837158203125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "analyze",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "crash_analyze_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.003814697265625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "analyze",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "crash_analyze_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.005245208740234375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "analyze",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "crash_analyze_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.004291534423828125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "analyze",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "crash_analyze_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0050067901611328125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "analyze",
+        "trial": 4
+      }
+    },
+    {
+      "run_id": "crash_summarize_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.005245208740234375,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "summarize",
+        "trial": 0
+      }
+    },
+    {
+      "run_id": "crash_summarize_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0050067901611328125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "summarize",
+        "trial": 1
+      }
+    },
+    {
+      "run_id": "crash_summarize_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.003814697265625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "summarize",
+        "trial": 2
+      }
+    },
+    {
+      "run_id": "crash_summarize_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.003814697265625,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "summarize",
+        "trial": 3
+      }
+    },
+    {
+      "run_id": "crash_summarize_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 0,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 0.0050067901611328125,
+      "recovery_time_ms": 0.0,
+      "output_quality_score": null,
+      "failure_types": [
+        "crash"
+      ],
+      "config": {
+        "failure_mode": "crash",
+        "agent": "summarize",
+        "trial": 4
+      }
+    }
+  ]
+}

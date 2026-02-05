@@ -1,0 +1,2197 @@
+{
+  "metadata": {
+    "name": "repair_effectiveness",
+    "description": "Testing AEGIS repair capabilities across failure types",
+    "config": {
+      "num_trials": 5,
+      "failure_types": [
+        "hallucination",
+        "semantic_drift",
+        "empty_output",
+        "malformed_output"
+      ]
+    },
+    "started_at": "2026-01-12T09:06:31.212768",
+    "completed_at": "2026-01-12T10:19:19.377970"
+  },
+  "metrics": {
+    "summary": {
+      "total_runs": 100,
+      "successful_runs": 64,
+      "failed_runs": 36,
+      "success_rate": 0.64
+    },
+    "detection": {
+      "total_failures_injected": 100,
+      "total_failures_detected": 100,
+      "detection_rate": 1.0,
+      "false_negative_rate": 0.0
+    },
+    "recovery": {
+      "repair": {
+        "total_attempts": 150,
+        "total_successes": 64,
+        "success_rate": 0.4266666666666667
+      },
+      "recompose": {
+        "total_attempts": 0,
+        "total_successes": 0,
+        "success_rate": 0
+      },
+      "overall_recovery_rate": 0.64
+    },
+    "timing": {
+      "total_time": {
+        "mean_ms": 38926.756830215454,
+        "median_ms": 10393.635392189026,
+        "std_ms": 174478.79591758858,
+        "min_ms": 4408.546686172485,
+        "max_ms": 1505480.4010391235
+      },
+      "recovery_time": {
+        "mean_ms": 38926.756830215454,
+        "median_ms": 10393.635392189026,
+        "std_ms": 174478.79591758858
+      }
+    },
+    "quality": {
+      "available": true,
+      "mean_score": 0.673,
+      "median_score": 1.0,
+      "min_score": 0.0,
+      "max_score": 1.0
+    },
+    "by_failure_type": {
+      "hallucination": {
+        "count": 25,
+        "detected": 25,
+        "recovered": 0,
+        "detection_rate": 1.0,
+        "recovery_rate": 0.0
+      },
+      "semantic_drift": {
+        "count": 25,
+        "detected": 25,
+        "recovered": 22,
+        "detection_rate": 1.0,
+        "recovery_rate": 0.88
+      },
+      "quality": {
+        "count": 25,
+        "detected": 25,
+        "recovered": 22,
+        "detection_rate": 1.0,
+        "recovery_rate": 0.88
+      },
+      "format_error": {
+        "count": 25,
+        "detected": 25,
+        "recovered": 20,
+        "detection_rate": 1.0,
+        "recovery_rate": 0.8
+      }
+    }
+  },
+  "results": [
+    {
+      "run_id": "hallucination_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7980.785846710205,
+      "recovery_time_ms": 7980.785846710205,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 0,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11777.020931243896,
+      "recovery_time_ms": 11777.020931243896,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 0,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7578.142881393433,
+      "recovery_time_ms": 7578.142881393433,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 0,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 10341.44902229309,
+      "recovery_time_ms": 10341.44902229309,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 0,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7933.000087738037,
+      "recovery_time_ms": 7933.000087738037,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 0,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12904.570817947388,
+      "recovery_time_ms": 12904.570817947388,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 0,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7678.47204208374,
+      "recovery_time_ms": 7678.47204208374,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 0,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 15256.075143814087,
+      "recovery_time_ms": 15256.075143814087,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 0,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8701.87520980835,
+      "recovery_time_ms": 8701.87520980835,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 0,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 13007.246732711792,
+      "recovery_time_ms": 13007.246732711792,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 0,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7474.544048309326,
+      "recovery_time_ms": 7474.544048309326,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 0,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14006.359100341797,
+      "recovery_time_ms": 14006.359100341797,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 0,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8787.282228469849,
+      "recovery_time_ms": 8787.282228469849,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 0,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14336.055040359497,
+      "recovery_time_ms": 14336.055040359497,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 0,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 10752.257108688354,
+      "recovery_time_ms": 10752.257108688354,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 0,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8294.148683547974,
+      "recovery_time_ms": 8294.148683547974,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 0,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_0",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7783.067226409912,
+      "recovery_time_ms": 7783.067226409912,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 0,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 13824.77593421936,
+      "recovery_time_ms": 13824.77593421936,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 0,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8294.86107826233,
+      "recovery_time_ms": 8294.86107826233,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 0,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_0",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 10444.504022598267,
+      "recovery_time_ms": 10444.504022598267,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 0,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7885.236024856567,
+      "recovery_time_ms": 7885.236024856567,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 1,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19150.43616294861,
+      "recovery_time_ms": 19150.43616294861,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 1,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8908.273935317993,
+      "recovery_time_ms": 8908.273935317993,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 1,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11161.95821762085,
+      "recovery_time_ms": 11161.95821762085,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 1,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8398.781061172485,
+      "recovery_time_ms": 8398.781061172485,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 1,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14744.083166122437,
+      "recovery_time_ms": 14744.083166122437,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 1,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6513.7059688568115,
+      "recovery_time_ms": 6513.7059688568115,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 1,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12597.31912612915,
+      "recovery_time_ms": 12597.31912612915,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 1,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8939.153909683228,
+      "recovery_time_ms": 8939.153909683228,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 1,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19539.520025253296,
+      "recovery_time_ms": 19539.520025253296,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 1,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6829.775094985962,
+      "recovery_time_ms": 6829.775094985962,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 1,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11468.381881713867,
+      "recovery_time_ms": 11468.381881713867,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 1,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8396.52419090271,
+      "recovery_time_ms": 8396.52419090271,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 1,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14645.687818527222,
+      "recovery_time_ms": 14645.687818527222,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 1,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 10342.766761779785,
+      "recovery_time_ms": 10342.766761779785,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 1,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 5120.732069015503,
+      "recovery_time_ms": 5120.732069015503,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 1,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_1",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6963.068962097168,
+      "recovery_time_ms": 6963.068962097168,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 1,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14846.545934677124,
+      "recovery_time_ms": 14846.545934677124,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 1,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6094.574689865112,
+      "recovery_time_ms": 6094.574689865112,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 1,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_1",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8515.54799079895,
+      "recovery_time_ms": 8515.54799079895,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 1,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8396.178245544434,
+      "recovery_time_ms": 8396.178245544434,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 2,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 16712.48698234558,
+      "recovery_time_ms": 16712.48698234558,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 2,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 148226.65667533875,
+      "recovery_time_ms": 148226.65667533875,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 2,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4408.546686172485,
+      "recovery_time_ms": 4408.546686172485,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 2,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8805.782079696655,
+      "recovery_time_ms": 8805.782079696655,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 2,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 17205.220937728882,
+      "recovery_time_ms": 17205.220937728882,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 2,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7030.409097671509,
+      "recovery_time_ms": 7030.409097671509,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 2,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12091.16506576538,
+      "recovery_time_ms": 12091.16506576538,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 2,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8600.749731063843,
+      "recovery_time_ms": 8600.749731063843,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 2,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19151.768922805786,
+      "recovery_time_ms": 19151.768922805786,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 2,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19663.285970687866,
+      "recovery_time_ms": 19663.285970687866,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 2,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 17306.789875030518,
+      "recovery_time_ms": 17306.789875030518,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 2,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6858.689069747925,
+      "recovery_time_ms": 6858.689069747925,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 2,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 21229.022979736328,
+      "recovery_time_ms": 21229.022979736328,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 2,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12082.180261611938,
+      "recovery_time_ms": 12082.180261611938,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 2,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 9114.185094833374,
+      "recovery_time_ms": 9114.185094833374,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 2,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_2",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 886684.2241287231,
+      "recovery_time_ms": 886684.2241287231,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 2,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 17321.849822998047,
+      "recovery_time_ms": 17321.849822998047,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 2,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8399.423837661743,
+      "recovery_time_ms": 8399.423837661743,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 2,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_2",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14781.883239746094,
+      "recovery_time_ms": 14781.883239746094,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 2,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6760.034799575806,
+      "recovery_time_ms": 6760.034799575806,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 3,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 13779.627084732056,
+      "recovery_time_ms": 13779.627084732056,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 3,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8192.682981491089,
+      "recovery_time_ms": 8192.682981491089,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 3,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4819.460153579712,
+      "recovery_time_ms": 4819.460153579712,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 3,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14334.002017974854,
+      "recovery_time_ms": 14334.002017974854,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 3,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14133.297204971313,
+      "recovery_time_ms": 14133.297204971313,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 3,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11724.897861480713,
+      "recovery_time_ms": 11724.897861480713,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 3,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 9522.485971450806,
+      "recovery_time_ms": 9522.485971450806,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 3,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8907.848119735718,
+      "recovery_time_ms": 8907.848119735718,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 3,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 277101.40681266785,
+      "recovery_time_ms": 277101.40681266785,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 3,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 10644.959926605225,
+      "recovery_time_ms": 10644.959926605225,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 3,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11467.537879943848,
+      "recovery_time_ms": 11467.537879943848,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 3,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8088.788986206055,
+      "recovery_time_ms": 8088.788986206055,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 3,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 15251.037120819092,
+      "recovery_time_ms": 15251.037120819092,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 3,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14438.292026519775,
+      "recovery_time_ms": 14438.292026519775,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 3,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7168.745994567871,
+      "recovery_time_ms": 7168.745994567871,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 3,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_3",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7678.747892379761,
+      "recovery_time_ms": 7678.747892379761,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 3,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 20072.59202003479,
+      "recovery_time_ms": 20072.59202003479,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 3,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 4516.077995300293,
+      "recovery_time_ms": 4516.077995300293,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 3,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_3",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19662.698984146118,
+      "recovery_time_ms": 19662.698984146118,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 3,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8500.066995620728,
+      "recovery_time_ms": 8500.066995620728,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 4,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 13414.386749267578,
+      "recovery_time_ms": 13414.386749267578,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 4,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 5636.430978775024,
+      "recovery_time_ms": 5636.430978775024,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 4,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6044.5802211761475,
+      "recovery_time_ms": 6044.5802211761475,
+      "output_quality_score": 0.3,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 4,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8707.639932632446,
+      "recovery_time_ms": 8707.639932632446,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 4,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 19456.462860107422,
+      "recovery_time_ms": 19456.462860107422,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 4,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12087.260246276855,
+      "recovery_time_ms": 12087.260246276855,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 4,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 16190.104007720947,
+      "recovery_time_ms": 16190.104007720947,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 4,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 12029.896974563599,
+      "recovery_time_ms": 12029.896974563599,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 4,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 16130.300045013428,
+      "recovery_time_ms": 16130.300045013428,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 4,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7180.653095245361,
+      "recovery_time_ms": 7180.653095245361,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 4,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 6857.434034347534,
+      "recovery_time_ms": 6857.434034347534,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 4,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8974.961042404175,
+      "recovery_time_ms": 8974.961042404175,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 4,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 11097.65601158142,
+      "recovery_time_ms": 11097.65601158142,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 4,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 14337.694883346558,
+      "recovery_time_ms": 14337.694883346558,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 4,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7784.289836883545,
+      "recovery_time_ms": 7784.289836883545,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 4,
+        "strategy": "schema_enforcement"
+      }
+    },
+    {
+      "run_id": "hallucination_4",
+      "success": false,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 3,
+      "repair_successes": 0,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 8121.5410232543945,
+      "recovery_time_ms": 8121.5410232543945,
+      "output_quality_score": 0.0,
+      "failure_types": [
+        "hallucination"
+      ],
+      "config": {
+        "failure_type": "hallucination",
+        "trial": 4,
+        "strategy": null
+      }
+    },
+    {
+      "run_id": "semantic_drift_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 1505480.4010391235,
+      "recovery_time_ms": 1505480.4010391235,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "semantic_drift"
+      ],
+      "config": {
+        "failure_type": "semantic_drift",
+        "trial": 4,
+        "strategy": "semantic_clarification"
+      }
+    },
+    {
+      "run_id": "quality_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 7048.597097396851,
+      "recovery_time_ms": 7048.597097396851,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "quality"
+      ],
+      "config": {
+        "failure_type": "quality",
+        "trial": 4,
+        "strategy": "quality_enhancement"
+      }
+    },
+    {
+      "run_id": "format_error_4",
+      "success": true,
+      "failures_injected": 1,
+      "failures_detected": 1,
+      "repair_attempts": 1,
+      "repair_successes": 1,
+      "recompose_attempts": 0,
+      "recompose_successes": 0,
+      "total_time_ms": 27041.03922843933,
+      "recovery_time_ms": 27041.03922843933,
+      "output_quality_score": 1.0,
+      "failure_types": [
+        "format_error"
+      ],
+      "config": {
+        "failure_type": "format_error",
+        "trial": 4,
+        "strategy": "schema_enforcement"
+      }
+    }
+  ]
+}
