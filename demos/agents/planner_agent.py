@@ -1,17 +1,3 @@
-"""
-PlannerAgent
-============
-Manages itinerary creation, step-by-step execution, and event-driven replanning.
-
-Subscribes to:
-  - WEATHER_CHANGED  — triggers replan with new weather constraints
-  - REPLAN_REQUESTED — triggers replan for any external reason (e.g., traffic)
-
-Publishes:
-  - PLAN_UPDATED — after a successful replan
-  - ACTION_COMPLETED — after each action step executes
-"""
-
 import asyncio
 import logging
 from dataclasses import dataclass, field

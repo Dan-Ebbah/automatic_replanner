@@ -13,6 +13,7 @@ class WeatherCondition(Enum):
     SNOWY = "snowy"
     WINDY = "windy"
     STORMY = "stormy"
+    ANY = "any"
 
 class ActivityLocation(Enum):
     INDOOR = "indoor"
@@ -50,7 +51,7 @@ class ActivityAction(Action):
     duration_minutes: int = 60
 
     def is_applicable_with_weather(self, state: Set[str], weather: WeatherCondition) -> bool:
-        return self._is_applicable(state) and weather == self.weather_requirement
+        return self._is_applicable(state) and (weather == self.weather_requirement or self.weather_requirement == WeatherCondition.ANY)
 
 
 

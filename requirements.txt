@@ -36,6 +36,10 @@ tabulate>=0.9.0
 tqdm>=4.66.0
 rich>=13.0.0
 
+# API Server
+fastapi>=0.115.0
+uvicorn>=0.34.0
+
 # Optional: For advanced metrics
 scikit-learn>=1.4.0
 scipy>=1.12.0
