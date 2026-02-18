@@ -16,6 +16,7 @@ from aegis.events import (
     PlanUpdatedEvent,
 )
 from aegis.state import PlanningGraph
+from app.data.extract_data import get_place, build_weather_and_alternatives
 from demos.activities import ActivityAction, WeatherCondition
 from app.chat.state import ChatState, Intent, DayPlan, Message
 from app.services.activity_adapter import (
@@ -81,16 +82,21 @@ class TripChatBot(BaseAgent):
     # ------------------------------------------------------------------
 
     async def handle_message(self, user_input: str) -> str:
+        logger.info("Received message: %s", user_input[:80])
         self.state.add_message("user", user_input)
 
         intent, params = await self._parse_intent(user_input)
+        logger.info("Parsed intent=%s, params=%s", intent, params)
 
         result, events = self._dispatch_intent(intent, params, user_input)
+        logger.debug("Dispatch result length=%d, events=%d", len(result), len(events))
 
         for evt in events:
+            logger.debug("Publishing event: %s", evt.event_type)
             await self._publish_if_connected(evt)
 
         llm_response = await self._format_response(intent, result)
+        logger.debug("LLM response length=%d", len(llm_response))
         self.state.add_message("bot", llm_response)
         return llm_response
 
@@ -119,9 +125,31 @@ class TripChatBot(BaseAgent):
     # ------------------------------------------------------------------
 
     def _load_sample_trip(self):
-        self.trip_data = SAMPLE_TRIP
-        self.weather_maps = WEATHER_MAPS
-        self.indoor_alternatives = INDOOR_ALTERNATIVES
+        logger.info("Loading trip data from MongoDB...")
+        self.trip_data = get_place()
+        # Fallback to SAMPLE_TRIP if MongoDB connection fails or data is empty
+        if self.trip_data is None:
+            logger.warning("MongoDB returned None — falling back to SAMPLE_TRIP")
+            self.trip_data = SAMPLE_TRIP
+        elif not self.trip_data.get("days") or all(
+            not day.get("plan") for day in self.trip_data.get("days", [])
+        ):
+            logger.warning("MongoDB data has no activities — falling back to SAMPLE_TRIP")
+            self.trip_data = SAMPLE_TRIP
+        else:
+            days = self.trip_data["days"]
+            total = sum(len(d.get("plan", [])) for d in days)
+            logger.info("Loaded trip from MongoDB: %d days, %d activities", len(days), total)
+
+        # Use dynamic maps from MongoDB when trip data came from DB,
+        # fall back to hardcoded maps only for the SAMPLE_TRIP fallback.
+        if self.trip_data is SAMPLE_TRIP:
+            self.weather_maps = WEATHER_MAPS
+            self.indoor_alternatives = INDOOR_ALTERNATIVES
+            logger.info("Using hardcoded WEATHER_MAPS and INDOOR_ALTERNATIVES (sample trip)")
+        else:
+            self.weather_maps, self.indoor_alternatives = build_weather_and_alternatives(self.trip_data)
+            logger.info("Using dynamic weather maps and MongoDB indoor alternatives")
 
     # ------------------------------------------------------------------
     # Context / intent parsing
@@ -317,6 +345,10 @@ class TripChatBot(BaseAgent):
     # ------------------------------------------------------------------
 
     def _handle_plan_trip(self, params: dict) -> tuple[str, list[Event]]:
+        # Safety check: ensure trip_data is available
+        if not self.trip_data or "days" not in self.trip_data or not self.trip_data["days"]:
+            return "Error: No trip data available. Please check the configuration.", []
+
         results = []
         total_steps = 0
         for day_idx in range(len(self.trip_data["days"])):

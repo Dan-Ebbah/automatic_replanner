@@ -1,4 +1,23 @@
 import asyncio
+import logging
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
+LOG_FILE = os.environ.get("LOG_FILE", "aegis.log")
+
+logging.basicConfig(
+    level=getattr(logging, LOG_LEVEL, logging.INFO),
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler(LOG_FILE, mode="a"),
+    ],
+)
+logger = logging.getLogger(__name__)
 
 from aegis.config import AEGISConfig
 from aegis.agent import AgentConfig
@@ -72,6 +91,7 @@ async def main():
     await bot.start()
     await weather_agent.start()
 
+    logger.info("AEGIS started — log_level=%s, llm=%s", LOG_LEVEL, aegis_config.llm_provider)
     print(BANNER)
 
     loop = asyncio.get_event_loop()
