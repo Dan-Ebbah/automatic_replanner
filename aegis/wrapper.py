@@ -8,6 +8,7 @@ to create self-healing LangGraph workflows.
 import uuid
 import time
 import json
+import logging
 import functools
 from typing import Dict, Any, Optional, List, Callable, TypeVar, Union
 from datetime import datetime
@@ -25,6 +26,32 @@ from .detector import AEGISDetector
 from .repair import AEGISRepair
 from .recompose import AEGISRecompose
 from .registry import AgentRegistry, default_registry
+
+
+_wrapper_logger = logging.getLogger(__name__)
+
+
+@dataclass
+class AEGISHealing:
+    """Declares a domain-specific failure and its repair for AEGIS to manage."""
+
+    name: str
+    failure_condition: Callable[[dict], bool]
+    repair_fn: Callable[[dict], Optional[dict]]
+    failure_type: "FailureType"
+    description: str = ""
+    max_attempts: int = 3
+
+
+@dataclass
+class HealedResult:
+    """Outcome returned by AEGIS.check_and_heal()."""
+
+    healed: bool
+    healing_name: str = ""
+    result: dict = field(default_factory=dict)
+    attempts: int = 0
+    reason: str = ""
 
 
 class AEGIS:
@@ -64,6 +91,9 @@ class AEGIS:
         
         # Tracking
         self.healing_logs: Dict[str, HealingLog] = {}
+
+        # Declarative healing registrations
+        self._healings: List[AEGISHealing] = []
     
     @classmethod
     def wrap(
@@ -143,6 +173,92 @@ class AEGIS:
             execution_history=history,
             repair_attempts=repair_attempts
         )
+
+    # ------------------------------------------------------------------
+    # Declarative healing API
+    # ------------------------------------------------------------------
+
+    def declare_healing(self, healing: AEGISHealing) -> None:
+        """Register a domain-specific failure/repair declaration with AEGIS.
+
+        Call once at startup for each failure mode you want AEGIS to manage.
+        """
+        self._healings.append(healing)
+        _wrapper_logger.info(
+            "[AEGIS] Registered healing: '%s' — %s",
+            healing.name,
+            healing.description or "(no description)",
+        )
+
+    async def check_and_heal(
+        self, state: dict, context: str = ""
+    ) -> HealedResult:
+        """Run all registered failure conditions against *state* and attempt repair.
+
+        Returns a HealedResult indicating whether healing succeeded.
+        """
+        ctx_tag = f" [{context}]" if context else ""
+
+        for healing in self._healings:
+            if not healing.failure_condition(state):
+                continue
+
+            # Failure condition matched — attempt repair
+            for attempt in range(1, healing.max_attempts + 1):
+                _wrapper_logger.info(
+                    "[AEGIS] Healing triggered: %s%s (attempt %d/%d)",
+                    healing.name,
+                    ctx_tag,
+                    attempt,
+                    healing.max_attempts,
+                )
+                try:
+                    repaired = healing.repair_fn(state)
+                except Exception as exc:
+                    _wrapper_logger.warning(
+                        "[AEGIS] repair_fn raised on attempt %d for '%s': %s",
+                        attempt,
+                        healing.name,
+                        exc,
+                    )
+                    repaired = None
+
+                if repaired is not None:
+                    # Verify the repair actually resolved the condition
+                    merged = {**state, **repaired}
+                    if not healing.failure_condition(merged):
+                        _wrapper_logger.info(
+                            "[AEGIS] Healing succeeded: %s after %d attempt(s)%s",
+                            healing.name,
+                            attempt,
+                            ctx_tag,
+                        )
+                        return HealedResult(
+                            healed=True,
+                            healing_name=healing.name,
+                            result=repaired,
+                            attempts=attempt,
+                        )
+                    # Repair returned data but condition still true — try again
+                    _wrapper_logger.debug(
+                        "[AEGIS] repair_fn returned data but condition still active for '%s' (attempt %d)",
+                        healing.name,
+                        attempt,
+                    )
+
+            _wrapper_logger.warning(
+                "[AEGIS] Healing failed: %s — max attempts reached%s",
+                healing.name,
+                ctx_tag,
+            )
+            return HealedResult(
+                healed=False,
+                healing_name=healing.name,
+                attempts=healing.max_attempts,
+                reason="max attempts reached",
+            )
+
+        return HealedResult(healed=False, reason="no matching condition")
 
 
 class AEGISWorkflow:

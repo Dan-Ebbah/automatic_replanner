@@ -1,13 +1,18 @@
 import asyncio
 import json
 import logging
+import time as _time
+from datetime import datetime
+from typing import Optional
 
+from openai import AuthenticationError, OpenAIError, PermissionDeniedError, RateLimitError
 from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 
-from aegis.config import AEGISConfig, LLMProvider
+from aegis.config import AEGISConfig, LLMProvider, FailureType
 from aegis.agent import BaseAgent, AgentConfig
+from aegis.wrapper import AEGIS, AEGISHealing
 from aegis.events import (
     Event,
     EventBus,
@@ -18,7 +23,7 @@ from aegis.events import (
 from aegis.state import PlanningGraph
 from app.data.extract_data import get_place, build_weather_and_alternatives
 from demos.activities import ActivityAction, WeatherCondition
-from app.chat.state import ChatState, Intent, DayPlan, Message
+from app.chat.state import ChatState, Intent, DayPlan
 from app.services.activity_adapter import (
     build_actions_for_day_with_weather,
     build_indoor_alternatives,
@@ -27,6 +32,27 @@ from app.data.sample_trip import SAMPLE_TRIP, WEATHER_MAPS, INDOOR_ALTERNATIVES
 from app.prompts import INTENT_SYSTEM_PROMPT, RESPONSE_SYSTEM_PROMPT
 
 logger = logging.getLogger(__name__)
+
+
+class TripAgentLLMError(RuntimeError):
+    """Structured error raised when the upstream LLM call fails.
+
+    The API layer maps this to an HTTP error with the original upstream status
+    code when possible so callers see the real problem instead of a generic 500.
+    """
+
+    def __init__(self, detail: str, status_code: int = 500):
+        super().__init__(detail)
+        self.detail = detail
+        self.status_code = status_code
+
+
+def _mask_secret(value: str | None) -> str:
+    if not value:
+        return "<missing>"
+    if len(value) <= 10:
+        return f"{value[:4]}…{value[-2:]}"
+    return f"{value[:7]}…{value[-4:]}"
 
 
 class TripChatBot(BaseAgent):
@@ -50,8 +76,13 @@ class TripChatBot(BaseAgent):
         self.state = ChatState()
         self._load_sample_trip()
 
-        self.notification_queue: asyncio.Queue[str] = asyncio.Queue()
+        self.notification_queue: asyncio.Queue[dict] = asyncio.Queue()
+        self.last_healing_record: dict | None = None
+        self._heal_start_time: float | None = None
         self._event_connected = event_bus is not None
+
+        # AEGIS self-healing engine
+        self.aegis = AEGIS(config=config)
 
     # ------------------------------------------------------------------
     # BaseAgent lifecycle
@@ -60,6 +91,16 @@ class TripChatBot(BaseAgent):
     async def setup(self) -> None:
         self.subscribe_to(EventType.WEATHER_CHANGED)
         self.subscribe_to(EventType.PLAN_UPDATED)
+
+        self.aegis.declare_healing(AEGISHealing(
+            name="weather_change",
+            failure_condition=lambda state: bool(
+                state.get("weather_changed") and state.get("trip_planned")
+            ),
+            repair_fn=self._replan_affected_days,
+            failure_type=FailureType.SEMANTIC_DRIFT,
+            description="Replan outdoor activities when weather changes",
+        ))
 
     async def run(self) -> None:
         while self._running:
@@ -72,10 +113,14 @@ class TripChatBot(BaseAgent):
         if event.event_type == EventType.WEATHER_CHANGED:
             await self._on_external_weather_change(event)
         elif event.event_type == EventType.PLAN_UPDATED:
-            self.notification_queue.put_nowait(
-                f"Plan updated by agent '{event.source_agent_id}' "
-                f"({event.plan_step_count} steps)."
-            )
+            self.notification_queue.put_nowait({
+                "type": "plan_updated",
+                "timestamp": datetime.now().isoformat(),
+                "payload": {
+                    "trigger": event.source_agent_id,
+                    "step_count": getattr(event, "plan_step_count", 0),
+                },
+            })
 
     # ------------------------------------------------------------------
     # Public API
@@ -106,12 +151,19 @@ class TripChatBot(BaseAgent):
 
     def _create_llm(self):
         if self.aegis_config.llm_provider == LLMProvider.OPENAI:
+            logger.info(
+                "Using OpenAI model=%s key=%s",
+                self.aegis_config.llm_model,
+                _mask_secret(self.aegis_config.openai_api_key),
+            )
             return ChatOpenAI(
                 model=self.aegis_config.llm_model,
                 temperature=0.1,
                 api_key=self.aegis_config.openai_api_key,
-            )
+            )  # type: ignore[call-arg]
         elif self.aegis_config.llm_provider == LLMProvider.ANTHROPIC:
+            logger.info("Using Anthropic model=%s", self.aegis_config.llm_model)
+            # noinspection PyArgumentList
             return ChatAnthropic(
                 model=self.aegis_config.llm_model,
                 temperature=0.1,
@@ -119,6 +171,28 @@ class TripChatBot(BaseAgent):
             )
         else:
             raise ValueError(f"Unsupported LLM provider: {self.aegis_config.llm_provider}")
+
+    async def _ainvoke_llm(self, messages, purpose: str):
+        try:
+            return await self.llm.ainvoke(messages)
+        except (AuthenticationError, PermissionDeniedError) as exc:
+            raise TripAgentLLMError(
+                f"OpenAI authentication failed while {purpose}. Verify OPENAI_API_KEY and project access.",
+                status_code=401,
+            ) from exc
+        except RateLimitError as exc:
+            raw = str(exc)
+            if "insufficient_quota" in raw:
+                detail = (
+                    f"OpenAI quota was exhausted while {purpose}. "
+                    "This usually means the key belongs to a project without billing/credits, "
+                    "or the wrong project/org is selected in the dashboard."
+                )
+            else:
+                detail = f"OpenAI rate limit hit while {purpose}. Please retry shortly."
+            raise TripAgentLLMError(detail, status_code=429) from exc
+        except OpenAIError as exc:
+            raise TripAgentLLMError(f"OpenAI error while {purpose}: {exc}", status_code=500) from exc
 
     # ------------------------------------------------------------------
     # Data loading
@@ -164,12 +238,12 @@ class TripChatBot(BaseAgent):
 
     async def _parse_intent(self, user_input: str):
         context = self._build_context()
-        response = await self.llm.ainvoke([
+        response = await self._ainvoke_llm([
             SystemMessage(content=INTENT_SYSTEM_PROMPT),
             HumanMessage(
                 content=f"Conversation context:\n{context}\n\nUser message: {user_input}"
             ),
-        ])
+        ], purpose="parsing intent")
         if not response.content:
             raise ValueError("LLM response is empty. Unable to parse intent.")
         try:
@@ -218,10 +292,10 @@ class TripChatBot(BaseAgent):
     # ------------------------------------------------------------------
 
     async def _format_response(self, intent_str: str, result: str) -> str:
-        response = await self.llm.ainvoke([
+        response = await self._ainvoke_llm([
             SystemMessage(content=RESPONSE_SYSTEM_PROMPT),
             HumanMessage(content=f"Intent: {intent_str}\n\nResult:\n{result}"),
-        ])
+        ], purpose="formatting the response")
         return response.content
 
     # ------------------------------------------------------------------
@@ -244,37 +318,129 @@ class TripChatBot(BaseAgent):
         weather = weather_map.get(new_cond_str, WeatherCondition.RAINY)
 
         if not self.state.trip_planned:
-            self.notification_queue.put_nowait(
-                f"Weather alert: {location} is now {new_cond_str}, "
-                f"but no trip is planned yet."
-            )
+            self.notification_queue.put_nowait({
+                "type": "weather_alert",
+                "timestamp": datetime.now().isoformat(),
+                "payload": {
+                    "location": location,
+                    "new_weather": new_cond_str,
+                    "note": "no_trip_planned",
+                },
+            })
             return
 
-        affected_days = []
-        for day_idx, day_data in enumerate(self.trip_data["days"]):
-            if day_data.get("city", "").lower() == location.lower():
-                actions = self._plan_day(day_idx, weather)
-                if actions is not None:
-                    day_num = day_data.get("day", day_idx + 1)
-                    self.state.day_plans[day_idx] = DayPlan(
-                        day_number=day_num,
-                        city=day_data.get("city", "Unknown"),
-                        actions=actions,
-                        weather=weather,
-                    )
-                    affected_days.append(day_num)
+        state = {
+            "weather_changed": True,
+            "trip_planned": self.state.trip_planned,
+            "location": location,
+            "new_weather": weather,
+            "new_weather_str": new_cond_str,
+            "day_plans": self.state.day_plans,
+            "trip_data": self.trip_data,
+        }
+        self._heal_start_time = _time.monotonic()
+        self.notification_queue.put_nowait({
+            "type": "weather_alert",
+            "timestamp": datetime.now().isoformat(),
+            "payload": {"location": location, "new_weather": new_cond_str},
+        })
+        self.notification_queue.put_nowait({
+            "type": "replan_started",
+            "timestamp": datetime.now().isoformat(),
+            "payload": {"location": location, "weather": new_cond_str},
+        })
+        healed = await self.aegis.check_and_heal(state, context=f"weather→{new_cond_str}")
 
-        if affected_days:
-            days_str = ", ".join(str(d) for d in affected_days)
-            self.notification_queue.put_nowait(
-                f"Weather alert! {location} is now {new_cond_str}. "
-                f"Auto-replanned day(s) {days_str} with {new_cond_str}-weather activities."
-            )
+        if healed.healed:
+            self.state.day_plans.update(healed.result["day_plans"])
+            latency_ms = round((_time.monotonic() - self._heal_start_time) * 1000) if self._heal_start_time else 0
+            self.notification_queue.put_nowait({
+                "type": "replan_complete",
+                "timestamp": datetime.now().isoformat(),
+                "payload": {
+                    "location": location,
+                    "new_weather": new_cond_str,
+                    "affected_days": healed.result["affected_days"],
+                    "status": "success",
+                    "attempts": healed.attempts,
+                    "latency_ms": latency_ms,
+                },
+            })
         else:
-            self.notification_queue.put_nowait(
-                f"Weather alert: {location} is now {new_cond_str}, "
-                f"but no matching days found in the trip."
+            latency_ms = round((_time.monotonic() - self._heal_start_time) * 1000) if self._heal_start_time else 0
+            self.notification_queue.put_nowait({
+                "type": "replan_complete",
+                "timestamp": datetime.now().isoformat(),
+                "payload": {
+                    "location": location,
+                    "new_weather": new_cond_str,
+                    "affected_days": [],
+                    "status": "failed",
+                    "attempts": healed.attempts,
+                    "latency_ms": latency_ms,
+                },
+            })
+
+        self.last_healing_record = {
+            "run_id": f"heal_{int(_time.monotonic() * 1000)}",
+            "location": location,
+            "new_weather": new_cond_str,
+            "status": "success" if healed.healed else "failed",
+            "attempts": healed.attempts,
+            "affected_days": healed.result.get("affected_days", []) if healed.healed else [],
+            "latency_ms": round((_time.monotonic() - self._heal_start_time) * 1000) if self._heal_start_time else 0,
+        }
+
+    # ------------------------------------------------------------------
+    # AEGIS repair function
+    # ------------------------------------------------------------------
+
+    def _replan_affected_days(self, state: dict) -> Optional[dict]:
+        """Repair function declared with AEGIS: replans all days in *location* for *new_weather*.
+
+        Returns a dict with 'day_plans' (mapping day_idx → DayPlan) and
+        'affected_days' (list of day numbers), or None if planning failed for
+        every matching day.
+        """
+        location: str = state.get("location", "")
+        weather: WeatherCondition = state.get("new_weather", WeatherCondition.RAINY)
+
+        updated_day_plans: dict = {}
+        affected_days: list = []
+
+        for day_idx, day_data in enumerate(self.trip_data.get("days", [])):
+            if day_data.get("city", "").lower() != location.lower():
+                continue
+            actions = self._plan_day(day_idx, weather)
+            if actions is None:
+                continue
+            day_num = day_data.get("day", day_idx + 1)
+            updated_day_plans[day_idx] = DayPlan(
+                day_number=day_num,
+                city=day_data.get("city", "Unknown"),
+                actions=actions,
+                weather=weather,
             )
+            affected_days.append(day_num)
+            self.notification_queue.put_nowait({
+                "type": "plan_built",
+                "timestamp": datetime.now().isoformat(),
+                "payload": {
+                    "day_number": day_num,
+                    "city": day_data.get("city", "Unknown"),
+                    "action_count": len(actions),
+                },
+            })
+
+        if not affected_days:
+            return None
+
+        # Include weather_changed: False so AEGIS knows the condition is resolved.
+        return {
+            "day_plans": updated_day_plans,
+            "affected_days": affected_days,
+            "weather_changed": False,
+        }
 
     # ------------------------------------------------------------------
     # Planning helper

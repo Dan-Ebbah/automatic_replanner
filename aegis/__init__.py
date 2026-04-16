@@ -48,7 +48,7 @@ from .detector import AEGISDetector
 from .repair import AEGISRepair
 from .recompose import AEGISRecompose
 from .registry import AgentRegistry, default_registry
-from .wrapper import AEGIS, AEGISWorkflow, with_aegis_monitoring
+from .wrapper import AEGIS, AEGISWorkflow, AEGISHealing, HealedResult, with_aegis_monitoring
 
 from .events import EventBus, Event, EventType, WeatherChangedEvent, ReplanRequestedEvent, PlanUpdatedEvent
 from .agent import BaseAgent, AgentConfig
@@ -61,6 +61,8 @@ __all__ = [
     # Main classes
     "AEGIS",
     "AEGISWorkflow",
+    "AEGISHealing",
+    "HealedResult",
     
     # Components
     "AEGISDetector",

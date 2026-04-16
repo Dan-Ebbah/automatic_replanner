@@ -8,6 +8,7 @@ Run:
 """
 
 import asyncio
+import json as _json
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -42,7 +43,7 @@ from aegis.events import EventBus  # noqa: E402
 from demos.activities import WeatherCondition  # noqa: E402
 from demos.weather_service import MockWeatherService  # noqa: E402
 from demos.agents.weather_agent import WeatherAgent  # noqa: E402
-from app.chat import TripChatBot  # noqa: E402
+from app.chat.bot import TripAgentLLMError, TripChatBot  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Pydantic request / response models
@@ -54,7 +55,7 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
-    notifications: list[str] = []
+    notifications: list[dict] = []
 
 
 class WeatherInjectRequest(BaseModel):
@@ -142,7 +143,9 @@ async def _drain_queue_to_ws() -> None:
         notification = await app_state.bot.notification_queue.get()
         logger.info("Notification from queue: %s", notification)
         if manager.count > 0:
-            await manager.broadcast(notification)
+            payload = _json.dumps(notification) if isinstance(notification, dict) else \
+                      _json.dumps({"type": "info", "timestamp": "", "payload": {"message": notification}})
+            await manager.broadcast(payload)
         app_state.bot.notification_queue.task_done()
 
 
@@ -211,7 +214,7 @@ app = FastAPI(title="AEGIS Trip Planner API", version="0.1.0", lifespan=lifespan
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -227,12 +230,15 @@ async def chat(req: ChatRequest):
     """Send a message to the trip-planning bot."""
     try:
         response = await app_state.bot.handle_message(req.message)
+    except TripAgentLLMError as exc:
+        logger.warning("Upstream LLM error: %s", exc.detail)
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail)
     except Exception as exc:
         logger.exception("Error handling chat message")
         raise HTTPException(status_code=500, detail=str(exc))
 
     # Drain any inline notifications generated during handling
-    notifications: list[str] = []
+    notifications: list[dict] = []
     while not app_state.bot.notification_queue.empty():
         try:
             notifications.append(app_state.bot.notification_queue.get_nowait())
@@ -270,6 +276,15 @@ async def inject_weather(req: WeatherInjectRequest):
     app_state.weather_agent.inject_weather_change(condition)
     logger.info("Injected weather change: %s", condition.value)
     return WeatherInjectResponse(ok=True, injected=condition.value)
+
+
+@app.get("/api/healing")
+async def get_healing():
+    """Return the last healing run record."""
+    record = app_state.bot.last_healing_record
+    if record is None:
+        return {"available": False}
+    return {"available": True, **record}
 
 
 @app.get("/api/itinerary", response_model=ItineraryResponse)

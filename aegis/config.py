@@ -124,7 +124,7 @@ class AEGISConfig:
     recompose: RecomposeConfig = field(default_factory=RecomposeConfig)
     
     # Logging
-    log_level: str = "INFO"
+    log_level: str = "DEBUG"
     log_all_outputs: bool = True
     
     # Recovery strategy order

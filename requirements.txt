@@ -38,7 +38,8 @@ rich>=13.0.0
 
 # API Server
 fastapi>=0.115.0
-uvicorn>=0.34.0
+uvicorn[standard]>=0.34.0
+websockets>=12.0
 
 # Optional: For advanced metrics
 scikit-learn>=1.4.0
